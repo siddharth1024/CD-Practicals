@@ -3,19 +3,15 @@
  */
 
 Array.prototype.unique = function () {
-	var u = []
-	this.map(function (e) {
-		if (u.indexOf(e) < 0) u.push(e)
+	return this.filter(function (elem, index, self) {
+		return index === self.indexOf(elem);
 	})
-	return u
 }
 
 Array.prototype.stripNull = function () {
-	var u = []
-	this.map(function (e) {
-		if (e !== '^') u.push(e)
+	return this.filter(function (elem) {
+		return elem !== '^'
 	})
-	return u
 }
 
 var Grammar
@@ -25,18 +21,16 @@ function FF(rulesArray) {
 	this.productionsRules = []
 
 	this.isTerminal = function (l) {
-		for (var i = 0; i < this.productionsRules.length; i++) {
+		for (var i = 0; i < this.productionsRules.length; i++)
 			if (this.productionsRules[i].letter === l)
 				return false
-		}
 		return true
 	}
 
 	this.getRule = function (l) {
-		for (var i = 0; i < this.productionsRules.length; i++) {
+		for (var i = 0; i < this.productionsRules.length; i++)
 			if (this.productionsRules[i].letter === l)
 				return this.productionsRules[i]
-		}
 		return false
 	}
 
